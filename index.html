@@ -8,11 +8,22 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
-    <div class="main">
-        <h5>Can you name all 100 North Carolina counties in ten minutes?</h5>
-        <span id="time">--:--</span>
-        <input id="input" placeholder="Type Here..." type="text" autocomplete="off"/>
-        <ul id="correct-answers"></ul>
+    <div id="main">
+        <div id="game-header">
+            <button id="give-up-btn">Give Up?</button>
+            <button id="replay-btn">Replay</button>
+            <span id="time">--:--</span>
+        </div>
+        <div id="game-type">
+            <h1 id="game-text">Can you name all 100 North Carolina counties in ten minutes?</h1>
+        </div>
+        <div id="input-block">
+            <input id="input" placeholder="Type Here..." type="text" autocomplete="off"/>
+        </div>
+        <div id="game-footer">
+            <p id="text">You have 10 minutes, get to it!</p>
+            <ul id="correct-answers"></ul>
+        </div>
     </div>
     <script src="./assets/js/script.js"></script>
 </body>
