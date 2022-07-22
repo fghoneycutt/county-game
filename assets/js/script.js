@@ -269,27 +269,35 @@ function createCorrectList(newLi){
             return;
         }
     }
-    text.textContent = "Yes!"
-    setTimeout(function(){
-        text.textContent = missedCounties.length + " left to go!"
-    }, 2000)
+    displayLeft();
     var list = document.getElementById("correct-answers");
     var listItemEl = document.createElement("li");
     listItemEl.textContent = newLi;
     list.appendChild(listItemEl);
 }
+//create a global variable for the setInterval so that it can be stopped once the game ends
+var leftToGo = setInterval(0);
+function displayLeft(){
+    var text = document.getElementById("game-text");
+    text.textContent = "Yes!";
+    leftToGo = setTimeout(function () {
+    text.textContent = missedCounties.length + " left to go!";
+    }, 2000);   
+}
+
 function endGame(){
     clearInterval(displayHint);
     clearInterval(timeInterval);
+    clearInterval(leftToGo);
     var footerText = document.getElementById("text");
     footerText.setAttribute("class", "hide");
     var h1El = document.getElementById("game-text");
     if (namedCounties.length === 100){
         h1El.textContent = "You named all 100 counties in North Carolina in less than 10 minutes. Geography majors are insane, but you can't help falling in love with them."
     } else if (namedCounties.length === 1) {
-        h1El.textContent = "You got 1 county out of 100! Try again to improve your score and time!"
+        h1El.textContent = "You got 1 county out of 100! Try again to improve your score!"
     } else{
-        h1El.textContent = "You got " + namedCounties.length + " counties out of 100! Try again to improve your score and time!"
+        h1El.textContent = "You got " + namedCounties.length + " counties out of 100! Try again to improve your score!"
     }
     var input = document.getElementById("input");
     input.setAttribute("class", "hide");

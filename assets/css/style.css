@@ -26,13 +26,25 @@ body{
 #game-header button{
     margin-top: 10px;
 }
+#game-header{
+    height: 1vw;
+}
+.btn{
+    background-color: #556B2F;
+    border-radius: 5px;
+    font-size: medium;
+}
+#time{
+    font-size: larger;
+    margin-top: 10px;
+}
 h1 {
     color: white;
     background-color: rgba(0, 0, 0, .5);
     padding: .5vw;
     max-width: fit-content;
     margin: auto;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 input{
     border-radius: .5vw;
@@ -42,11 +54,13 @@ input{
 #game-footer{
     background-color: #556B2F; 
     color: black;
-    width: 100vw;
-    min-height: 7vw;
+    width: 70vw;
     margin-left: auto;
     margin-right:auto;
+    margin-bottom: auto;
+    min-height: 7vw;
     font-size: larger;
+    border-radius: 10px;
 }
 ul{
     display: flex;
