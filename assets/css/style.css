@@ -1,22 +1,65 @@
+*{
+    box-sizing: border-box;
+}
 body{
+    height: 100%;
     margin: 0;
+    padding: 0;
 }
 
 #main{
     position: absolute;
     text-align: center;
-    background-color: aquamarine;
+    justify-content: center;
     width: 100%;
     height: 100%;
+    margin: 0 auto;
+    display: grid;
+    place-self: center;
+    background-image: url("../images/NC-state2.jpg");
+    background-repeat:repeat-y ;
+    background-position: center;
+}
+#game-header, #game-type, #input-block, #game-footer{
+    position: relative;
+}
+#game-header button{
+    margin-top: 10px;
+}
+h1 {
+    color: white;
+    background-color: rgba(0, 0, 0, .5);
+    padding: .5vw;
+    max-width: fit-content;
+    margin: auto;
+    border-radius: 15px;
+}
+input{
+    border-radius: .5vw;
+    border: 2px solid rgba(0, 0, 0, .5);
+    font-size:x-large ;
 }
 #game-footer{
-    background-color: #222;
-    color: white;
+    background-color: #556B2F; 
+    color: black;
+    width: 100vw;
+    min-height: 7vw;
+    margin-left: auto;
+    margin-right:auto;
+    font-size: larger;
+}
+ul{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
 }
 /* ul styling found at https: //stackoverflow.com/questions/15306108/how-to-style-a-horizontal-list-with-bullets-between-items-using-css  */
 ul li {
     display: inline;
     white-space: pre;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 ul li:after {
@@ -26,4 +69,8 @@ ul li:after {
 
 ul li:last-child:after {
     content: "";
+}
+
+.hide{
+    display: none;
 }

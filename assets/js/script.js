@@ -207,18 +207,24 @@ var missedCounties = [
 //empty array to hold guessed counties
 var namedCounties = [];
 //array to hold hints
-var hints = ["Ignore the clock, it's not your friend", "Go through the alphabet", "Think about the trips you've taken", "Think about famous places in North Carolina", "You might have missed an obvious one"];
+var hints = ["Ignore the clock, it's not your friend", "Go through the alphabet", "Think about trips you've taken", "Think about popular places in North Carolina", "You might have missed an obvious one", "Go through cities, beaches, landmarks, etc."];
 var input = document.getElementById("input");
 var time = document.getElementById("time");
 var giveUp = document.getElementById("give-up-btn");
 var replay = document.getElementById("replay-btn")
-
+var listEl = document.createElement("ul");
+listEl.setAttribute("id", "correct-answers")
+var footerDiv = document.getElementById("game-footer");
 //countdown function
 var timeLeft = 60 * 10;
+var timeInterval = setInterval(0);
 function countdown() {
+    footerDiv.appendChild(listEl);
     hintCycle();
+    var footerText = document.getElementById("text");
+    footerText.setAttribute("class", "hide");
     input.removeEventListener("keydown", countdown);
-    var timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
         if (timeLeft > -1) {
         var minutes = parseInt(timeLeft / 60, 10);
         var seconds = parseInt(timeLeft % 60, 10);
@@ -238,8 +244,12 @@ function checkIfRight(){
     for (var i = 0; i < counties.length; i++){
        if (inputVal.toLowerCase() === counties[i].toLowerCase()){
         namedCounties.push(counties[i]);
-        //remove a named county from the initial counties array (any that are not guessed will be printed later for the user to see)
-        missedCounties.splice(i, 1);
+        //remove a named county from the initial missedCounties array (any that are not guessed will be printed later for the user to see)
+        for (var n = 0; n < missedCounties.length; n++){
+            if (counties[i] === missedCounties[n]){
+                missedCounties.splice(n, 1);
+            }
+        }
         document.getElementById("input").value = "";
         createCorrectList(namedCounties[namedCounties.length -1]);
        }
@@ -269,22 +279,57 @@ function createCorrectList(newLi){
     list.appendChild(listItemEl);
 }
 function endGame(){
+    clearInterval(displayHint);
+    clearInterval(timeInterval);
+    var footerText = document.getElementById("text");
+    footerText.setAttribute("class", "hide");
     var h1El = document.getElementById("game-text");
     if (namedCounties.length === 100){
         h1El.textContent = "You named all 100 counties in North Carolina in less than 10 minutes. Geography majors are insane, but you can't help falling in love with them."
     } else if (namedCounties.length === 1) {
-        h1El.textContent = "You got 1 county out of 100! You can do better than that, try again to improve your score and time!"
+        h1El.textContent = "You got 1 county out of 100! Try again to improve your score and time!"
     } else{
         h1El.textContent = "You got " + namedCounties.length + " counties out of 100! Try again to improve your score and time!"
     }
+    var input = document.getElementById("input");
+    input.setAttribute("class", "hide");
+    listEl.remove();
+    listEl = document.createElement("ul");
+    listEl.setAttribute("id", "correct-answers");
+    var footer = document.getElementById("game-footer");
+    footer.appendChild(listEl);
+    for (var i = 0; i < missedCounties.length; i++){
+        var listItemEl = document.createElement("li");
+        listItemEl.textContent =  missedCounties[i];
+        listEl.appendChild(listItemEl);
+    }
+
+
 }
 function replayGame(){
-
+    var input = document.getElementById("input");
+    input.classList.remove("hide");
+    input.value = "";
+    var footerText = document.getElementById("text");
+    footerText.classList.remove("hide");
+    var h1El = document.getElementById("game-text");
+    h1El.textContent = "Can you name all 100 North Carolina counties in ten minutes?";
+    var time = document.getElementById("time");
+    time.textContent = "--:--"
+    var listEl = document.getElementById("correct-answers");
+    listEl.innerHTML = "";
+    timeLeft = 60 * 10;
+    namedCounties = [];
+    missedCounties = counties;
+    input.addEventListener("keydown", countdown);
+    
 }
 
+//create a global variable for the setInterval so that it can be stopped once the game ends
+var displayHint = setInterval(0);
 function hintCycle(){
     var text = document.getElementById("game-text");
-    setInterval(function(){
+    displayHint = setInterval(function(){
         var random =  hints[Math.floor(Math.random() * hints.length)];
         text.textContent = random;
     }, 10000); 
