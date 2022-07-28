@@ -216,7 +216,7 @@ var listEl = document.createElement("ul");
 listEl.setAttribute("id", "correct-answers")
 var footerDiv = document.getElementById("game-footer");
 //countdown function
-var timeLeft = 60 * 10;
+var timeLeft = 60 * 15;
 var timeInterval = setInterval(0);
 function countdown() {
     footerDiv.appendChild(listEl);
@@ -293,7 +293,7 @@ function endGame(){
     footerText.setAttribute("class", "hide");
     var h1El = document.getElementById("game-text");
     if (namedCounties.length === 100){
-        h1El.textContent = "You named all 100 counties in North Carolina in less than 10 minutes. Geography majors are insane, but you can't help falling in love with them."
+        h1El.textContent = "You named all 100 counties in North Carolina in less than 15 minutes. Geography majors are insane, but you can't help falling in love with them."
     } else if (namedCounties.length === 1) {
         h1El.textContent = "You got 1 county out of 100! Try again to improve your score!"
     } else{
@@ -326,7 +326,7 @@ function replayGame(){
     time.textContent = "--:--"
     var listEl = document.getElementById("correct-answers");
     listEl.innerHTML = "";
-    timeLeft = 60 * 10;
+    timeLeft = 60 * 15;
     namedCounties = [];
     missedCounties = counties;
     input.addEventListener("keydown", countdown);
